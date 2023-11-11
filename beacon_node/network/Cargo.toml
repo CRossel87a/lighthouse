@@ -20,8 +20,8 @@ types = { workspace = true }
 slot_clock = { workspace = true }
 slog = { workspace = true }
 hex = { workspace = true }
-ethereum_ssz = { workspace = true }
-ssz_types = { workspace = true }
+ethereum_ssz = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
+ssz_types = { git = "https://github.com/CRossel87a/ssz_types.git" }
 futures = { workspace = true }
 error-chain = { workspace = true }
 tokio = { workspace = true }

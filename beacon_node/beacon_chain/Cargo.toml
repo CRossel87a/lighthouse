@@ -31,9 +31,9 @@ slog = { workspace = true }
 sloggers = { workspace = true }
 slot_clock = { workspace = true }
 ethereum_hashing = { workspace = true }
-ethereum_ssz = { workspace = true }
-ssz_types = { workspace = true }
-ethereum_ssz_derive = { workspace = true }
+ethereum_ssz = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
+ssz_types = { git = "https://github.com/CRossel87a/ssz_types.git" }
+ethereum_ssz_derive = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
 state_processing = { workspace = true }
 tree_hash_derive = { workspace = true }
 tree_hash = { workspace = true }

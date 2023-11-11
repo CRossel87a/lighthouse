@@ -18,7 +18,7 @@ lighthouse_network = { workspace = true }
 hex = { workspace = true }
 derivative = { workspace = true }
 types = { workspace = true }
-ethereum_ssz = { workspace = true }
+ethereum_ssz = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
 lazy_static = { workspace = true }
 lighthouse_metrics = { workspace = true }
 parking_lot = { workspace = true }

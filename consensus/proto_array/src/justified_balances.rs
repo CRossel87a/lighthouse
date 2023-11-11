@@ -9,7 +9,7 @@ pub struct JustifiedBalances {
     /// zero.
     pub effective_balances: Vec<u64>,
     /// The sum of `self.effective_balances`.
-    pub total_effective_balance: u64,
+    pub total_effective_balance: u128,
     /// The number of active validators included in `self.effective_balances`.
     pub num_active_validators: u64,
 }
@@ -17,7 +17,7 @@ pub struct JustifiedBalances {
 impl JustifiedBalances {
     pub fn from_justified_state<T: EthSpec>(state: &BeaconState<T>) -> Result<Self, ArithError> {
         let current_epoch = state.current_epoch();
-        let mut total_effective_balance = 0u64;
+        let mut total_effective_balance = 0u128;
         let mut num_active_validators = 0u64;
 
         let effective_balances = state
@@ -25,7 +25,7 @@ impl JustifiedBalances {
             .iter()
             .map(|validator| {
                 if !validator.slashed && validator.is_active_at(current_epoch) {
-                    total_effective_balance.safe_add_assign(validator.effective_balance)?;
+                    total_effective_balance.safe_add_assign(validator.effective_balance as u128)?;
                     num_active_validators.safe_add_assign(1)?;
 
                     Ok(validator.effective_balance)
@@ -43,12 +43,12 @@ impl JustifiedBalances {
     }
 
     pub fn from_effective_balances(effective_balances: Vec<u64>) -> Result<Self, ArithError> {
-        let mut total_effective_balance = 0;
+        let mut total_effective_balance = 0u128;
         let mut num_active_validators = 0;
 
         for &balance in &effective_balances {
             if balance != 0 {
-                total_effective_balance.safe_add_assign(balance)?;
+                total_effective_balance.safe_add_assign(balance as u128)?;
                 num_active_validators.safe_add_assign(1)?;
             }
         }

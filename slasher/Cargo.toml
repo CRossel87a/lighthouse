@@ -12,8 +12,8 @@ lmdb = ["lmdb-rkv", "lmdb-rkv-sys"]
 [dependencies]
 bincode = { workspace = true }
 byteorder = { workspace = true }
-ethereum_ssz = { workspace = true }
-ethereum_ssz_derive = { workspace = true }
+ethereum_ssz = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
+ethereum_ssz_derive = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
 flate2 = { version = "1.0.14", features = ["zlib"], default-features = false }
 lazy_static = { workspace = true }
 lighthouse_metrics = { workspace = true }

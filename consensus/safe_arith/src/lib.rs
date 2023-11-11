@@ -111,6 +111,7 @@ impl_safe_arith!(u8);
 impl_safe_arith!(u16);
 impl_safe_arith!(u32);
 impl_safe_arith!(u64);
+impl_safe_arith!(u128);
 impl_safe_arith!(usize);
 impl_safe_arith!(i8);
 impl_safe_arith!(i16);

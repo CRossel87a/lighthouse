@@ -22,8 +22,8 @@ environment = { workspace = true }
 bytes = { workspace = true }
 task_executor = { workspace = true }
 hex = { workspace = true }
-ethereum_ssz = { workspace = true }
-ssz_types = { workspace = true }
+ethereum_ssz = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
+ssz_types = { git = "https://github.com/CRossel87a/ssz_types.git" }
 eth2 = { workspace = true }
 state_processing = { workspace = true }
 superstruct = { workspace = true }

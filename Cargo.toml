@@ -93,7 +93,7 @@ resolver = "2"
 edition = "2021"
 
 [workspace.dependencies]
-arbitrary = { version = "1", features = ["derive"] }
+arbitrary = { git = "https://github.com/michaelsproul/arbitrary", rev="f002b99989b561ddce62e4cf2887b0f8860ae991", features = ["derive"] }
 bincode = "1"
 bitvec = "1"
 byteorder = "1"
@@ -110,8 +110,6 @@ error-chain = "0.12"
 ethereum-types = "0.14"
 ethereum_hashing = "1.0.0-beta.2"
 ethereum_serde_utils = "0.5"
-ethereum_ssz = "0.5"
-ethereum_ssz_derive = "0.5"
 ethers-core = "1"
 ethers-providers = { version = "1", default-features = false }
 exit-future = "0.2"
@@ -150,7 +148,6 @@ slog-term = "2"
 sloggers = { version = "2", features = ["json"] }
 smallvec = "1"
 snap = "1"
-ssz_types = "0.5"
 strum = { version = "0.24", features = ["derive"] }
 superstruct = "0.6"
 syn = "1"
@@ -164,7 +161,7 @@ tree_hash_derive = "0.5"
 url = "2"
 uuid = { version = "0.8", features = ["serde", "v4"] }
 # TODO update to warp 0.3.6 after released.
-warp = { git = "https://github.com/seanmonstar/warp.git", default-features = false, features = ["tls"] }
+warp = { git = "https://github.com/macladson/warp", rev="7e75acc368229a46a236a8c991bf251fe7fe50ef", default-features = false, features = ["tls"] }
 zeroize = { version = "1", features = ["zeroize_derive"] }
 zip = "0.6"
 

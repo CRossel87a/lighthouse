@@ -170,7 +170,7 @@ impl Into<ProtoNodeV16> for ProtoNode {
 #[derive(PartialEq, Debug, Encode, Decode, Serialize, Deserialize, Copy, Clone)]
 pub struct ProposerBoost {
     pub root: Hash256,
-    pub score: u64,
+    pub score: u128,
 }
 
 impl Default for ProposerBoost {
@@ -1115,12 +1115,12 @@ impl ProtoArray {
 pub fn calculate_committee_fraction<E: EthSpec>(
     justified_balances: &JustifiedBalances,
     proposer_score_boost: u64,
-) -> Option<u64> {
+) -> Option<u128> {
     let committee_weight = justified_balances
         .total_effective_balance
-        .checked_div(E::slots_per_epoch())?;
+        .checked_div(E::slots_per_epoch() as u128)?;
     committee_weight
-        .checked_mul(proposer_score_boost)?
+        .checked_mul(proposer_score_boost as u128)?
         .checked_div(100)
 }
 

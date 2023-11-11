@@ -213,10 +213,18 @@ checksum = "a4668cab20f66d8d020e1fbc0ebe47217433c1b6c8f2040faf858554e394ace6"
 [[package]]
 name = "arbitrary"
 version = "1.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e2d098ff73c1ca148721f37baad5ea6a465a13f9573aba8641fbbbae8164a54e"
+source = "git+https://github.com/michaelsproul/arbitrary?rev=f002b99989b561ddce62e4cf2887b0f8860ae991#f002b99989b561ddce62e4cf2887b0f8860ae991"
 dependencies = [
- "derive_arbitrary",
+ "derive_arbitrary 1.3.0",
+]
+
+[[package]]
+name = "arbitrary"
+version = "1.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7d5a26814d8dcb93b0e5a0ff3c6d80a8843bafb21b39e8e18a6f05471870e110"
+dependencies = [
+ "derive_arbitrary 1.3.2",
 ]
 
 [[package]]
@@ -755,7 +763,7 @@ checksum = "8d696c370c750c948ada61c69a0ee2cbbb9c50b1019ddb86d9317157a99c2cae"
 name = "bls"
 version = "0.2.0"
 dependencies = [
- "arbitrary",
+ "arbitrary 1.3.0",
  "blst",
  "ethereum-types 0.14.1",
  "ethereum_hashing",
@@ -1609,9 +1617,19 @@ dependencies = [
 
 [[package]]
 name = "derive_arbitrary"
-version = "1.3.1"
+version = "1.3.0"
+source = "git+https://github.com/michaelsproul/arbitrary?rev=f002b99989b561ddce62e4cf2887b0f8860ae991#f002b99989b561ddce62e4cf2887b0f8860ae991"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
+]
+
+[[package]]
+name = "derive_arbitrary"
+version = "1.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "53e0efad4403bfc52dc201159c4b842a246a14b98c64b55dfd0f2d89729dfeb8"
+checksum = "67e77553c4162a157adbf834ebae5b415acbecbeafc7a74b0e886657506a7611"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2395,9 +2413,8 @@ dependencies = [
 
 [[package]]
 name = "ethereum_ssz"
-version = "0.5.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e61ffea29f26e8249d35128a82ec8d3bd4fbc80179ea5f5e5e3daafef6a80fcb"
+version = "0.5.2"
+source = "git+https://github.com/CRossel87a/ethereum_ssz.git#bd0acae6368c3da9489c1c263ea6aa690d796043"
 dependencies = [
  "ethereum-types 0.14.1",
  "itertools",
@@ -2406,9 +2423,8 @@ dependencies = [
 
 [[package]]
 name = "ethereum_ssz_derive"
-version = "0.5.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6085d7fd3cf84bd2b8fec150d54c8467fb491d8db9c460607c5534f653a0ee38"
+version = "0.5.2"
+source = "git+https://github.com/CRossel87a/ethereum_ssz.git#bd0acae6368c3da9489c1c263ea6aa690d796043"
 dependencies = [
  "darling",
  "proc-macro2",
@@ -2743,7 +2759,7 @@ version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "835c052cb0c08c1acf6ffd71c022172e18723949c8282f2b9f27efbc51e64534"
 dependencies = [
- "arbitrary",
+ "arbitrary 1.3.2",
  "byteorder",
  "rand",
  "rustc-hex",
@@ -2910,7 +2926,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "35bd3cf68c183738046838e300353e4716c674dc5e56890de4826801a6622a28"
 dependencies = [
  "futures-io",
- "rustls",
+ "rustls 0.21.7",
 ]
 
 [[package]]
@@ -3453,9 +3469,9 @@ dependencies = [
  "futures-util",
  "http",
  "hyper",
- "rustls",
+ "rustls 0.21.7",
  "tokio",
- "tokio-rustls",
+ "tokio-rustls 0.24.1",
 ]
 
 [[package]]
@@ -4278,7 +4294,7 @@ dependencies = [
  "parking_lot 0.12.1",
  "quinn",
  "rand",
- "rustls",
+ "rustls 0.21.7",
  "socket2 0.5.4",
  "thiserror",
  "tokio",
@@ -4349,7 +4365,7 @@ dependencies = [
  "libp2p-identity",
  "rcgen",
  "ring",
- "rustls",
+ "rustls 0.21.7",
  "rustls-webpki",
  "thiserror",
  "x509-parser",
@@ -6147,7 +6163,7 @@ dependencies = [
  "quinn-proto",
  "quinn-udp",
  "rustc-hash",
- "rustls",
+ "rustls 0.21.7",
  "thiserror",
  "tokio",
  "tracing",
@@ -6163,7 +6179,7 @@ dependencies = [
  "rand",
  "ring",
  "rustc-hash",
- "rustls",
+ "rustls 0.21.7",
  "slab",
  "thiserror",
  "tinyvec",
@@ -6405,14 +6421,14 @@ dependencies = [
  "once_cell",
  "percent-encoding",
  "pin-project-lite",
- "rustls",
+ "rustls 0.21.7",
  "rustls-pemfile",
  "serde",
  "serde_json",
  "serde_urlencoded",
  "tokio",
  "tokio-native-tls",
- "tokio-rustls",
+ "tokio-rustls 0.24.1",
  "tokio-util 0.7.8",
  "tower-service",
  "url",
@@ -6615,6 +6631,19 @@ dependencies = [
 
 [[package]]
 name = "rustls"
+version = "0.19.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "35edb675feee39aec9c99fa5ff985081995a06d594114ae14cbe797ad7b7a6d7"
+dependencies = [
+ "base64 0.13.1",
+ "log",
+ "ring",
+ "sct 0.6.1",
+ "webpki",
+]
+
+[[package]]
+name = "rustls"
 version = "0.21.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cd8d6c9f025a446bc4d18ad9632e69aec8f287aa84499ee335599fabd20c3fd8"
@@ -6622,7 +6651,7 @@ dependencies = [
  "log",
  "ring",
  "rustls-webpki",
- "sct",
+ "sct 0.7.0",
 ]
 
 [[package]]
@@ -6753,6 +6782,16 @@ dependencies = [
  "pbkdf2 0.8.0",
  "salsa20",
  "sha2 0.9.9",
+]
+
+[[package]]
+name = "sct"
+version = "0.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b362b83898e0e69f38515b82ee15aa80636befe47c3b6d3d89a911e78fc228ce"
+dependencies = [
+ "ring",
+ "untrusted",
 ]
 
 [[package]]
@@ -7177,7 +7216,7 @@ dependencies = [
 name = "slashing_protection"
 version = "0.1.0"
 dependencies = [
- "arbitrary",
+ "arbitrary 1.3.0",
  "ethereum_serde_utils",
  "filesystem",
  "lazy_static",
@@ -7412,11 +7451,10 @@ dependencies = [
 
 [[package]]
 name = "ssz_types"
-version = "0.5.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "382939886cb24ee8ac885d09116a60f6262d827c7a9e36012b4f6d3d0116d0b3"
+version = "0.5.3"
+source = "git+https://github.com/CRossel87a/ssz_types.git#d83a9c519129f90c5717fae610d76b08524cabaa"
 dependencies = [
- "arbitrary",
+ "arbitrary 1.3.2",
  "derivative",
  "ethereum_serde_utils",
  "ethereum_ssz",
@@ -7432,7 +7470,7 @@ dependencies = [
 name = "state_processing"
 version = "0.2.0"
 dependencies = [
- "arbitrary",
+ "arbitrary 1.3.2",
  "beacon_chain",
  "bls",
  "derivative",
@@ -7984,11 +8022,22 @@ dependencies = [
 
 [[package]]
 name = "tokio-rustls"
+version = "0.22.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bc6844de72e57df1980054b38be3a9f4702aba4858be64dd700181a8a6d0e1b6"
+dependencies = [
+ "rustls 0.19.1",
+ "tokio",
+ "webpki",
+]
+
+[[package]]
+name = "tokio-rustls"
 version = "0.24.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c28327cf380ac148141087fbfb9de9d7bd4e84ab5d2c28fbc911d753de8a7081"
 dependencies = [
- "rustls",
+ "rustls 0.21.7",
  "tokio",
 ]
 
@@ -8292,7 +8341,7 @@ checksum = "42ff0bf0c66b8238c6f3b578df37d0b7848e55df8577b3f74f92a69acceeb825"
 name = "types"
 version = "0.2.1"
 dependencies = [
- "arbitrary",
+ "arbitrary 1.3.0",
  "beacon_chain",
  "bls",
  "cached_tree_hash",
@@ -8347,7 +8396,7 @@ version = "0.9.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "76f64bba2c53b04fcab63c01a7d7427eadc821e3bc48c34dc9ba29c501164b52"
 dependencies = [
- "arbitrary",
+ "arbitrary 1.3.2",
  "byteorder",
  "crunchy",
  "hex",
@@ -8624,8 +8673,8 @@ dependencies = [
 
 [[package]]
 name = "warp"
-version = "0.3.5"
-source = "git+https://github.com/seanmonstar/warp.git#5ad8a9cb155f6485d13d591a564d8c70053a388a"
+version = "0.3.2"
+source = "git+https://github.com/macladson/warp?rev=7e75acc368229a46a236a8c991bf251fe7fe50ef#7e75acc368229a46a236a8c991bf251fe7fe50ef"
 dependencies = [
  "bytes",
  "futures-channel",
@@ -8638,15 +8687,14 @@ dependencies = [
  "mime_guess",
  "percent-encoding",
  "pin-project",
- "rustls-pemfile",
  "scoped-tls",
  "serde",
  "serde_json",
  "serde_urlencoded",
  "tokio",
- "tokio-rustls",
+ "tokio-rustls 0.22.0",
  "tokio-stream",
- "tokio-util 0.7.8",
+ "tokio-util 0.6.10",
  "tower-service",
  "tracing",
 ]
@@ -8844,6 +8892,16 @@ dependencies = [
  "url",
  "validator_client",
  "zip",
+]
+
+[[package]]
+name = "webpki"
+version = "0.21.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b8e38c0608262c46d4a56202ebabdeb094cef7e560ca7a226c6bf055188aa4ea"
+dependencies = [
+ "ring",
+ "untrusted",
 ]
 
 [[package]]

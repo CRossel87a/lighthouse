@@ -20,8 +20,8 @@ ring = { workspace = true }
 bytes = { workspace = true }
 account_utils = { workspace = true }
 sensitive_url = { workspace = true }
-ethereum_ssz = { workspace = true }
-ethereum_ssz_derive = { workspace = true }
+ethereum_ssz = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
+ethereum_ssz_derive = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
 futures-util = "0.3.8"
 futures = { workspace = true }
 store = { workspace = true }

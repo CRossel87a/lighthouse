@@ -11,7 +11,7 @@ clap = { workspace = true }
 hex = { workspace = true }
 dirs = { workspace = true }
 eth2_network_config = { workspace = true }
-ethereum_ssz = { workspace = true }
+ethereum_ssz = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
 ethereum-types = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }

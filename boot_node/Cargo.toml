@@ -10,7 +10,7 @@ clap = { workspace = true }
 clap_utils = { workspace = true }
 lighthouse_network = { workspace = true }
 types = { workspace = true }
-ethereum_ssz = { workspace = true }
+ethereum_ssz = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
 slog = { workspace = true }
 tokio = { workspace = true }
 log = { workspace = true }

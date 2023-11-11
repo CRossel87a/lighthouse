@@ -16,7 +16,7 @@ eth1 = { workspace = true }
 rayon = { workspace = true }
 state_processing = { workspace = true }
 merkle_proof = { workspace = true }
-ethereum_ssz = { workspace = true }
+ethereum_ssz = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
 ethereum_hashing = { workspace = true }
 tree_hash = { workspace = true }
 tokio = { workspace = true }

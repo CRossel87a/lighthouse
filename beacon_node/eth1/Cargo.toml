@@ -19,8 +19,8 @@ serde = { workspace = true }
 hex = { workspace = true }
 types = { workspace = true }
 merkle_proof = { workspace = true }
-ethereum_ssz = { workspace = true }
-ethereum_ssz_derive = { workspace = true }
+ethereum_ssz = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
+ethereum_ssz_derive = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
 tree_hash = { workspace = true }
 parking_lot = { workspace = true }
 slog = { workspace = true }

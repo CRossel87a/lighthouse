@@ -24,7 +24,7 @@ lighthouse_metrics = { workspace = true }
 lazy_static = { workspace = true }
 warp_utils = { workspace = true }
 slot_clock = { workspace = true }
-ethereum_ssz = { workspace = true }
+ethereum_ssz = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
 bs58 = "0.4.0"
 futures = { workspace = true }
 execution_layer = { workspace = true }
