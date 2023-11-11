@@ -403,6 +403,7 @@ fn main() {
 
         match eth_spec_id {
             EthSpecId::Mainnet => run(EnvironmentBuilder::mainnet(), &matches, eth2_network_config),
+            EthSpecId::PulseChain => run(EnvironmentBuilder::pulsechain(), &matches, eth2_network_config),
             #[cfg(feature = "gnosis")]
             EthSpecId::Gnosis => run(EnvironmentBuilder::gnosis(), &matches, eth2_network_config),
             #[cfg(feature = "spec-minimal")]

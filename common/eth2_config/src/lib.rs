@@ -77,6 +77,13 @@ impl Eth2Config {
             spec: ChainSpec::gnosis(),
         }
     }
+    
+    pub fn pulsechain() -> Self {
+        Self {
+            eth_spec_id: EthSpecId::PulseChain,
+            spec: ChainSpec::pulsechain(),
+        }
+    }
 }
 
 /// Describes how a genesis state may be obtained.

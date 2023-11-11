@@ -22,7 +22,7 @@ use std::path::PathBuf;
 use std::sync::Arc;
 use task_executor::{ShutdownReason, TaskExecutor};
 use tokio::runtime::{Builder as RuntimeBuilder, Runtime};
-use types::{EthSpec, GnosisEthSpec, MainnetEthSpec, MinimalEthSpec};
+use types::{EthSpec, GnosisEthSpec, MainnetEthSpec, MinimalEthSpec, PulseChainEthSpec};
 
 #[cfg(target_family = "unix")]
 use {
@@ -165,6 +165,20 @@ impl EnvironmentBuilder<GnosisEthSpec> {
             sse_logging_components: None,
             eth_spec_instance: GnosisEthSpec,
             eth2_config: Eth2Config::gnosis(),
+            eth2_network_config: None,
+        }
+    }
+}
+
+impl EnvironmentBuilder<PulseChainEthSpec> {
+    /// Creates a new builder using the `pulsechain` eth2 specification.
+    pub fn pulsechain() -> Self {
+        Self {
+            runtime: None,
+            log: None,
+            sse_logging_components: None,
+            eth_spec_instance: PulseChainEthSpec,
+            eth2_config: Eth2Config::pulsechain(),
             eth2_network_config: None,
         }
     }

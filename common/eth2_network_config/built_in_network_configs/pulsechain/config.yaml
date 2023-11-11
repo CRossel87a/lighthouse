@@ -1,0 +1,76 @@
+# PulseChain mainnet config
+
+# Extends the mainnet preset
+CONFIG_NAME: pulsechain
+PRESET_BASE: pulsechain
+
+# Transition
+# ---------------------------------------------------------------
+TERMINAL_TOTAL_DIFFICULTY: 58750003716598352947541
+
+# Genesis
+# ---------------------------------------------------------------
+MIN_GENESIS_ACTIVE_VALIDATOR_COUNT: 4096
+# Jan 28 2023 00:00:00 UTC
+MIN_GENESIS_TIME: 1683776400
+# Genesis Fork Version
+GENESIS_FORK_VERSION: 0x00000369
+# 300 seconds
+GENESIS_DELAY: 300
+
+
+# Forking
+# ---------------------------------------------------------------
+# Some forks are disabled for now:
+#  - These may be re-assigned to another fork-version later
+#  - Temporarily set to max uint64 value: 2**64 - 1
+
+# Altair
+ALTAIR_FORK_VERSION: 0x0000036a
+ALTAIR_FORK_EPOCH: 1
+# Merge
+BELLATRIX_FORK_VERSION: 0x0000036b
+BELLATRIX_FORK_EPOCH: 2
+# Capella
+CAPELLA_FORK_VERSION: 0x0000036c
+CAPELLA_FORK_EPOCH: 3
+
+# Time parameters
+# ---------------------------------------------------------------
+# 10 seconds
+SECONDS_PER_SLOT: 10
+# 14 (estimate from Eth1 mainnet)
+SECONDS_PER_ETH1_BLOCK: 14
+# 2**8 (= 256) epochs ~27 hours
+MIN_VALIDATOR_WITHDRAWABILITY_DELAY: 256
+# 2**8 (= 256) epochs ~27 hours
+SHARD_COMMITTEE_PERIOD: 256
+# 2**11 (= 2,048) Eth1 blocks ~8 hours
+ETH1_FOLLOW_DISTANCE: 2048
+
+
+# Validator cycle
+# ---------------------------------------------------------------
+# 2**2 (= 4)
+INACTIVITY_SCORE_BIAS: 4
+# 2**4 (= 16)
+INACTIVITY_SCORE_RECOVERY_RATE: 16
+# 2**4 * 10**15 (= 16,000,000,000,000,000) Gwei
+EJECTION_BALANCE: 16000000000000000
+# 2**2 (= 4)
+MIN_PER_EPOCH_CHURN_LIMIT: 4
+# 2**16 (= 65,536)
+CHURN_LIMIT_QUOTIENT: 65536
+
+
+# Fork choice
+# ---------------------------------------------------------------
+# 40%
+PROPOSER_SCORE_BOOST: 40
+
+# Deposit contract
+# ---------------------------------------------------------------
+# Ethereum PoW Mainnet
+DEPOSIT_CHAIN_ID: 369
+DEPOSIT_NETWORK_ID: 369
+DEPOSIT_CONTRACT_ADDRESS: 0x3693693693693693693693693693693693693693
