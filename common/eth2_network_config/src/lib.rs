@@ -448,6 +448,7 @@ mod tests {
     fn hardcoded_testnet_names() {
         assert_eq!(HARDCODED_NET_NAMES.len(), HARDCODED_NETS.len());
         for (name, net) in HARDCODED_NET_NAMES.iter().zip(HARDCODED_NETS.iter()) {
+            dbg!(name);
             assert_eq!(name, &net.name);
         }
     }

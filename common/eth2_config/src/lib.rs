@@ -77,7 +77,7 @@ impl Eth2Config {
             spec: ChainSpec::gnosis(),
         }
     }
-    
+
     pub fn pulsechain() -> Self {
         Self {
             eth_spec_id: EthSpecId::PulseChain,
@@ -318,6 +318,16 @@ define_hardcoded_nets!(
         // directory where the configuration files are located for this network.
         "gnosis",
         // Describes how the genesis state can be obtained.
+        GenesisStateSource::IncludedBytes
+    ),
+    (
+        // Network name (must be unique among all networks).
+        pulsechain,
+        // The name of the directory in the `eth2_network_config/built_in_network_configs`
+        // directory where the configuration files are located for this network.
+        "pulsechain",
+        // Set to `true` if the genesis state can be found in the `built_in_network_configs`
+        // directory.
         GenesisStateSource::IncludedBytes
     ),
     (
