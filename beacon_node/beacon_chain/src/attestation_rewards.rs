@@ -91,7 +91,7 @@ impl<T: BeaconChainTypes> BeaconChain<T> {
             let source = (source_delta.rewards as i64).safe_sub(source_delta.penalties as i64)?;
 
             // No penalties associated with inclusion delay
-            let inclusion_delay = delta.inclusion_delay_delta.rewards;
+            let inclusion_delay = delta.inclusion_delay_delta.rewards as u64;
             let inactivity = delta.inactivity_penalty_delta.penalties.wrapping_neg() as i64;
 
             let rewards = TotalAttestationRewards {
@@ -140,13 +140,13 @@ impl<T: BeaconChainTypes> BeaconChain<T> {
                     .total_balance()
                     .map_err(|_| BeaconChainError::AttestationRewardsError)?;
 
-            let unslashed_participating_increments =
-                unslashed_participating_balance.safe_div(spec.effective_balance_increment)?;
+                    let unslashed_participating_increments = unslashed_participating_balance
+                    .safe_div(spec.effective_balance_increment as u128)?;
 
             let total_active_balance = participation_cache.current_epoch_total_active_balance();
 
             let active_increments =
-                total_active_balance.safe_div(spec.effective_balance_increment)?;
+                total_active_balance.safe_div(spec.effective_balance_increment as u128)?;
 
             let base_reward_per_increment =
                 BaseRewardPerIncrement::new(total_active_balance, spec)?;
@@ -161,10 +161,10 @@ impl<T: BeaconChainTypes> BeaconChain<T> {
 
                 let reward_numerator = base_reward
                     .safe_mul(weight)?
-                    .safe_mul(unslashed_participating_increments)?;
+                    .safe_mul(unslashed_participating_increments as u64)?;
 
                 let ideal_reward = reward_numerator
-                    .safe_div(active_increments)?
+                    .safe_div(active_increments as u64)?
                     .safe_div(WEIGHT_DENOMINATOR)?;
                 if !state.is_in_inactivity_leak(previous_epoch, spec)? {
                     ideal_rewards_hashmap
@@ -336,7 +336,7 @@ impl<T: BeaconChainTypes> BeaconChain<T> {
                 finality_delay,
                 spec,
             )?
-            .rewards;
+            .rewards as u64;
 
             // compute ideal target rewards
             let target = get_attestation_component_delta(
@@ -347,7 +347,7 @@ impl<T: BeaconChainTypes> BeaconChain<T> {
                 finality_delay,
                 spec,
             )?
-            .rewards;
+            .rewards as u64;
 
             // compute ideal source rewards
             let source = get_attestation_component_delta(
@@ -358,13 +358,13 @@ impl<T: BeaconChainTypes> BeaconChain<T> {
                 finality_delay,
                 spec,
             )?
-            .rewards;
+            .rewards as u64;
 
             // compute ideal inclusion delay rewards
             let inclusion_delay =
                 get_inclusion_delay_delta(&ideal_validator_status, base_reward, spec)?
                     .0
-                    .rewards;
+                    .rewards as u64;
 
             // compute inactivity penalty
             let inactivity = get_inactivity_penalty_delta(
