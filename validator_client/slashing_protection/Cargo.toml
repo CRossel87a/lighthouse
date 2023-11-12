@@ -20,7 +20,7 @@ serde_derive = "1.0.116"
 serde_json = { workspace = true }
 ethereum_serde_utils = { workspace = true }
 filesystem = { workspace = true }
-arbitrary = { git = "https://github.com/michaelsproul/arbitrary", rev="f002b99989b561ddce62e4cf2887b0f8860ae991", features = ["derive"] }
+arbitrary = { version = "1", features = ["derive"] }
 
 [dev-dependencies]
 lazy_static = { workspace = true }

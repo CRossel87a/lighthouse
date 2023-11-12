@@ -93,7 +93,7 @@ resolver = "2"
 edition = "2021"
 
 [workspace.dependencies]
-arbitrary = { git = "https://github.com/michaelsproul/arbitrary", rev="f002b99989b561ddce62e4cf2887b0f8860ae991", features = ["derive"] }
+arbitrary = { version = "1", features = ["derive"] }
 bincode = "1"
 bitvec = "1"
 byteorder = "1"

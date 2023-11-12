@@ -25,9 +25,9 @@ safe_arith = { workspace = true }
 serde = { workspace = true, features = ["rc"] }
 serde_derive = "1.0.116"
 slog = { workspace = true }
-ethereum_ssz = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
+ethereum_ssz = { git = "https://github.com/CRossel87a/ethereum_ssz.git", features = ["arbitrary"] }
 ethereum_ssz_derive = { git = "https://github.com/CRossel87a/ethereum_ssz.git" }
-ssz_types = { git = "https://github.com/CRossel87a/ssz_types.git" }
+ssz_types = { git = "https://github.com/CRossel87a/ssz_types.git", features = ["arbitrary"]  }
 swap_or_not_shuffle = { workspace = true, features = ["arbitrary"] }
 test_random_derive = { path = "../../common/test_random_derive" }
 tree_hash = { workspace = true, features = ["arbitrary"] }
@@ -40,7 +40,7 @@ derivative = { workspace = true }
 rusqlite = { workspace = true }
 # The arbitrary dependency is enabled by default since Capella to avoid complexity introduced by
 # `AbstractExecPayload`
-arbitrary = { git = "https://github.com/michaelsproul/arbitrary", rev="f002b99989b561ddce62e4cf2887b0f8860ae991", features = ["derive"] }
+arbitrary = { version = "1", features = ["derive"] }
 ethereum_serde_utils = { workspace = true }
 regex = { workspace = true }
 lazy_static = { workspace = true }

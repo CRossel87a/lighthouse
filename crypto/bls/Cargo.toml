@@ -15,7 +15,7 @@ ethereum_serde_utils = { workspace = true }
 hex = { workspace = true }
 ethereum_hashing = { workspace = true }
 ethereum-types = { workspace = true }
-arbitrary = { git = "https://github.com/michaelsproul/arbitrary", rev="f002b99989b561ddce62e4cf2887b0f8860ae991", features = ["derive"] }
+arbitrary = { version = "1", features = ["derive"] }
 zeroize = { workspace = true }
 blst = { version = "0.3.3", optional = true }
 
