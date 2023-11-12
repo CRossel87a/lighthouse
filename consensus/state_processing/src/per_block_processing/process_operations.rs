@@ -182,7 +182,7 @@ pub mod altair {
             .safe_mul(WEIGHT_DENOMINATOR)?
             .safe_div(PROPOSER_WEIGHT)?;
         let proposer_reward = proposer_reward_numerator.safe_div(proposer_reward_denominator)?;
-        increase_balance(state, proposer_index as usize, proposer_reward)?;
+        increase_balance(state, proposer_index as usize, proposer_reward, spec, true)?;
         Ok(())
     }
 }
@@ -393,7 +393,7 @@ pub fn process_deposit<T: EthSpec>(
 
     if let Some(index) = validator_index {
         // Update the existing validator balance.
-        increase_balance(state, index as usize, amount)?;
+        increase_balance(state, index as usize, amount, spec, false)?;
     } else {
         // The signature should be checked for new validators. Return early for a bad
         // signature.

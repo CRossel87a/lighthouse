@@ -7,9 +7,9 @@ use types::{Checkpoint, EthSpec};
 #[allow(clippy::if_same_then_else)] // For readability and consistency with spec.
 pub fn weigh_justification_and_finalization<T: EthSpec>(
     mut state: JustificationAndFinalizationState<T>,
-    total_active_balance: u64,
-    previous_target_balance: u64,
-    current_target_balance: u64,
+    total_active_balance: u128,
+    previous_target_balance: u128,
+    current_target_balance: u128,
 ) -> Result<JustificationAndFinalizationState<T>, Error> {
     let previous_epoch = state.previous_epoch();
     let current_epoch = state.current_epoch();

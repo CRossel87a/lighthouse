@@ -44,8 +44,8 @@ pub fn process_rewards_and_penalties<T: EthSpec>(
     // Apply the deltas, erroring on overflow above but not on overflow below (saturating at 0
     // instead).
     for (i, delta) in deltas.into_iter().enumerate() {
-        increase_balance(state, i, delta.rewards)?;
-        decrease_balance(state, i, delta.penalties)?;
+        increase_balance(state, i, delta.rewards as u64, spec, true)?;
+        decrease_balance(state, i, delta.penalties as u64)?;
     }
 
     Ok(())
@@ -58,7 +58,7 @@ pub fn get_flag_index_deltas<T: EthSpec>(
     deltas: &mut [Delta],
     state: &BeaconState<T>,
     flag_index: usize,
-    total_active_balance: u64,
+    total_active_balance: u128,
     participation_cache: &ParticipationCache,
     spec: &ChainSpec,
 ) -> Result<(), Error> {
@@ -68,25 +68,25 @@ pub fn get_flag_index_deltas<T: EthSpec>(
     let weight = get_flag_weight(flag_index)?;
     let unslashed_participating_balance = unslashed_participating_indices.total_balance()?;
     let unslashed_participating_increments =
-        unslashed_participating_balance.safe_div(spec.effective_balance_increment)?;
-    let active_increments = total_active_balance.safe_div(spec.effective_balance_increment)?;
+        unslashed_participating_balance.safe_div(spec.effective_balance_increment as u128)?;
+    let active_increments = total_active_balance.safe_div(spec.effective_balance_increment as u128)?;
     let base_reward_per_increment = BaseRewardPerIncrement::new(total_active_balance, spec)?;
 
     for &index in participation_cache.eligible_validator_indices() {
-        let base_reward = get_base_reward(state, index, base_reward_per_increment, spec)?;
+        let base_reward = get_base_reward(state, index, base_reward_per_increment, spec)? as u128;
         let mut delta = Delta::default();
 
         if unslashed_participating_indices.contains(index)? {
             if !state.is_in_inactivity_leak(previous_epoch, spec)? {
                 let reward_numerator = base_reward
-                    .safe_mul(weight)?
-                    .safe_mul(unslashed_participating_increments)?;
+                    .safe_mul(weight as u128)?
+                    .safe_mul(unslashed_participating_increments as u128)?;
                 delta.reward(
-                    reward_numerator.safe_div(active_increments.safe_mul(WEIGHT_DENOMINATOR)?)?,
+                    reward_numerator.safe_div((active_increments as u128).safe_mul(WEIGHT_DENOMINATOR as u128)?)?,
                 )?;
             }
         } else if flag_index != TIMELY_HEAD_FLAG_INDEX {
-            delta.penalize(base_reward.safe_mul(weight)?.safe_div(WEIGHT_DENOMINATOR)?)?;
+            delta.penalize(base_reward.safe_mul(weight as u128)?.safe_div(WEIGHT_DENOMINATOR as u128)?)?;
         }
         deltas
             .get_mut(index)
@@ -124,7 +124,7 @@ pub fn get_inactivity_penalty_deltas<T: EthSpec>(
             let penalty_denominator = spec
                 .inactivity_score_bias
                 .safe_mul(spec.inactivity_penalty_quotient_for_state(state))?;
-            delta.penalize(penalty_numerator.safe_div(penalty_denominator)?)?;
+            delta.penalize((penalty_numerator as u128).safe_div(penalty_denominator as u128)?)?;
         }
         deltas
             .get_mut(index)
@@ -133,3 +133,4 @@ pub fn get_inactivity_penalty_deltas<T: EthSpec>(
     }
     Ok(())
 }
+

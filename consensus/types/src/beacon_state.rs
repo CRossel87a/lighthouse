@@ -318,7 +318,7 @@ where
     #[tree_hash(skip_hashing)]
     #[test_random(default)]
     #[derivative(Clone(clone_with = "clone_default"))]
-    pub total_active_balance: Option<(Epoch, u64)>,
+    pub total_active_balance: Option<(Epoch, u128)>,
     #[serde(skip_serializing, skip_deserializing)]
     #[ssz(skip_serializing, skip_deserializing)]
     #[tree_hash(skip_hashing)]
@@ -1321,14 +1321,14 @@ impl<T: EthSpec> BeaconState<T> {
         &'a self,
         validator_indices: I,
         spec: &ChainSpec,
-    ) -> Result<u64, Error> {
-        let total_balance = validator_indices.into_iter().try_fold(0_u64, |acc, i| {
+    ) -> Result<u128, Error> {
+        let total_balance = validator_indices.into_iter().try_fold(0_u128, |acc, i| {
             self.get_effective_balance(*i)
-                .and_then(|bal| Ok(acc.safe_add(bal)?))
+                .and_then(|bal| Ok(acc.safe_add(bal as u128)?))
         })?;
         Ok(std::cmp::max(
             total_balance,
-            spec.effective_balance_increment,
+            spec.effective_balance_increment as u128,
         ))
     }
 
@@ -1338,7 +1338,7 @@ impl<T: EthSpec> BeaconState<T> {
     /// the current committee cache is.
     ///
     /// Returns minimum `EFFECTIVE_BALANCE_INCREMENT`, to avoid div by 0.
-    pub fn get_total_active_balance(&self) -> Result<u64, Error> {
+    pub fn get_total_active_balance(&self) -> Result<u128, Error> {
         let (initialized_epoch, balance) = self
             .total_active_balance()
             .ok_or(Error::TotalActiveBalanceCacheUninitialized)?;

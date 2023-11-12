@@ -52,7 +52,7 @@ struct SingleEpochParticipationCache {
 impl SingleEpochParticipationCache {
     fn new<T: EthSpec>(state: &BeaconState<T>, spec: &ChainSpec) -> Self {
         let num_validators = state.validators().len();
-        let zero_balance = Balance::zero(spec.effective_balance_increment);
+        let zero_balance = Balance::zero(spec.effective_balance_increment as u128);
 
         Self {
             unslashed_participating_indices: vec![None; num_validators],
@@ -62,7 +62,7 @@ impl SingleEpochParticipationCache {
     }
 
     /// Returns the total balance of attesters who have `flag_index` set.
-    fn total_flag_balance(&self, flag_index: usize) -> Result<u64, Error> {
+    fn total_flag_balance(&self, flag_index: usize) -> Result<u128, Error> {
         self.total_flag_balances
             .get(flag_index)
             .map(Balance::get)
@@ -129,7 +129,7 @@ impl SingleEpochParticipationCache {
         .ok_or(BeaconStateError::ParticipationOutOfBounds(val_index))?;
 
         // All active validators increase the total active balance.
-        self.total_active_balance.safe_add_assign(val_balance)?;
+        self.total_active_balance.safe_add_assign(val_balance as u128)?;
 
         // Only unslashed validators may proceed.
         if validator.slashed {
@@ -146,7 +146,7 @@ impl SingleEpochParticipationCache {
         // are set for `val_index`.
         for (flag, balance) in self.total_flag_balances.iter_mut().enumerate() {
             if epoch_participation.has_flag(flag)? {
-                balance.safe_add_assign(val_balance)?;
+                balance.safe_add_assign(val_balance as u128)?;
             }
         }
 
@@ -264,11 +264,11 @@ impl ParticipationCache {
      * Balances
      */
 
-    pub fn current_epoch_total_active_balance(&self) -> u64 {
+    pub fn current_epoch_total_active_balance(&self) -> u128 {
         self.current_epoch_participation.total_active_balance.get()
     }
 
-    pub fn current_epoch_target_attesting_balance(&self) -> Result<u64, Error> {
+    pub fn current_epoch_target_attesting_balance(&self) -> Result<u128, Error> {
         self.current_epoch_participation
             .total_flag_balance(TIMELY_TARGET_FLAG_INDEX)
     }
@@ -278,11 +278,11 @@ impl ParticipationCache {
             .total_flag_balance_raw(TIMELY_TARGET_FLAG_INDEX)
     }
 
-    pub fn previous_epoch_total_active_balance(&self) -> u64 {
+    pub fn previous_epoch_total_active_balance(&self) -> u128 {
         self.previous_epoch_participation.total_active_balance.get()
     }
 
-    pub fn previous_epoch_target_attesting_balance(&self) -> Result<u64, Error> {
+    pub fn previous_epoch_target_attesting_balance(&self) -> Result<u128, Error> {
         self.previous_epoch_participation
             .total_flag_balance(TIMELY_TARGET_FLAG_INDEX)
     }
@@ -292,12 +292,12 @@ impl ParticipationCache {
             .total_flag_balance_raw(TIMELY_TARGET_FLAG_INDEX)
     }
 
-    pub fn previous_epoch_source_attesting_balance(&self) -> Result<u64, Error> {
+    pub fn previous_epoch_source_attesting_balance(&self) -> Result<u128, Error> {
         self.previous_epoch_participation
             .total_flag_balance(TIMELY_SOURCE_FLAG_INDEX)
     }
 
-    pub fn previous_epoch_head_attesting_balance(&self) -> Result<u64, Error> {
+    pub fn previous_epoch_head_attesting_balance(&self) -> Result<u128, Error> {
         self.previous_epoch_participation
             .total_flag_balance(TIMELY_HEAD_FLAG_INDEX)
     }
@@ -392,7 +392,7 @@ impl<'a> UnslashedParticipatingIndices<'a> {
     /// ## Notes
     ///
     /// Respects the `EFFECTIVE_BALANCE_INCREMENT` minimum.
-    pub fn total_balance(&self) -> Result<u64, Error> {
+    pub fn total_balance(&self) -> Result<u128, Error> {
         self.participation
             .total_flag_balances
             .get(self.flag_index)

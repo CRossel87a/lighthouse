@@ -120,29 +120,29 @@ pub struct TotalBalances {
     /// The effective balance increment from the spec.
     effective_balance_increment: u64,
     /// The total effective balance of all active validators during the _current_ epoch.
-    current_epoch: u64,
+    current_epoch: u128,
     /// The total effective balance of all active validators during the _previous_ epoch.
-    previous_epoch: u64,
+    previous_epoch: u128,
     /// The total effective balance of all validators who attested during the _current_ epoch.
-    current_epoch_attesters: u64,
+    current_epoch_attesters: u128,
     /// The total effective balance of all validators who attested during the _current_ epoch and
     /// agreed with the state about the beacon block at the first slot of the _current_ epoch.
-    current_epoch_target_attesters: u64,
+    current_epoch_target_attesters: u128,
     /// The total effective balance of all validators who attested during the _previous_ epoch.
-    previous_epoch_attesters: u64,
+    previous_epoch_attesters: u128,
     /// The total effective balance of all validators who attested during the _previous_ epoch and
     /// agreed with the state about the beacon block at the first slot of the _previous_ epoch.
-    previous_epoch_target_attesters: u64,
+    previous_epoch_target_attesters: u128,
     /// The total effective balance of all validators who attested during the _previous_ epoch and
     /// agreed with the state about the beacon block at the time of attestation.
-    previous_epoch_head_attesters: u64,
+    previous_epoch_head_attesters: u128,
 }
 
 // Generate a safe accessor for a balance in `TotalBalances`, as per spec `get_total_balance`.
 macro_rules! balance_accessor {
     ($field_name:ident) => {
-        pub fn $field_name(&self) -> u64 {
-            std::cmp::max(self.effective_balance_increment, self.$field_name)
+        pub fn $field_name(&self) -> u128 {
+            std::cmp::max(self.effective_balance_increment as u128, self.$field_name)
         }
     };
 }
@@ -209,14 +209,14 @@ impl ValidatorStatuses {
                 status.is_active_in_current_epoch = true;
                 total_balances
                     .current_epoch
-                    .safe_add_assign(effective_balance)?;
+                    .safe_add_assign(effective_balance as u128)?;
             }
 
             if validator.is_active_at(state.previous_epoch()) {
                 status.is_active_in_previous_epoch = true;
                 total_balances
                     .previous_epoch
-                    .safe_add_assign(effective_balance)?;
+                    .safe_add_assign(effective_balance as u128)?;
             }
 
             statuses.push(status);
@@ -293,27 +293,27 @@ impl ValidatorStatuses {
                 if v.is_current_epoch_attester {
                     self.total_balances
                         .current_epoch_attesters
-                        .safe_add_assign(validator_balance)?;
+                        .safe_add_assign(validator_balance as u128)?;
                 }
                 if v.is_current_epoch_target_attester {
                     self.total_balances
                         .current_epoch_target_attesters
-                        .safe_add_assign(validator_balance)?;
+                        .safe_add_assign(validator_balance as u128)?;
                 }
                 if v.is_previous_epoch_attester {
                     self.total_balances
                         .previous_epoch_attesters
-                        .safe_add_assign(validator_balance)?;
+                        .safe_add_assign(validator_balance as u128)?;
                 }
                 if v.is_previous_epoch_target_attester {
                     self.total_balances
                         .previous_epoch_target_attesters
-                        .safe_add_assign(validator_balance)?;
+                        .safe_add_assign(validator_balance as u128)?;
                 }
                 if v.is_previous_epoch_head_attester {
                     self.total_balances
                         .previous_epoch_head_attesters
-                        .safe_add_assign(validator_balance)?;
+                        .safe_add_assign(validator_balance as u128)?;
                 }
             }
         }

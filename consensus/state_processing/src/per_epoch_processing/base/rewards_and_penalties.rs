@@ -65,8 +65,8 @@ pub fn process_rewards_and_penalties<T: EthSpec>(
     // instead).
     for (i, delta) in deltas.into_iter().enumerate() {
         let combined_delta = delta.flatten()?;
-        increase_balance(state, i, combined_delta.rewards)?;
-        decrease_balance(state, i, combined_delta.penalties)?;
+        increase_balance(state, i, combined_delta.rewards as u64, spec, true)?;
+        decrease_balance(state, i, combined_delta.penalties as u64)?;
     }
 
     Ok(())
@@ -178,7 +178,7 @@ fn get_attestation_deltas<T: EthSpec>(
 
 pub fn get_attestation_component_delta(
     index_in_unslashed_attesting_indices: bool,
-    attesting_balance: u64,
+    attesting_balance: u128,
     total_balances: &TotalBalances,
     base_reward: u64,
     finality_delay: u64,
@@ -192,17 +192,17 @@ pub fn get_attestation_component_delta(
         if finality_delay > spec.min_epochs_to_inactivity_penalty {
             // Since full base reward will be canceled out by inactivity penalty deltas,
             // optimal participation receives full base reward compensation here.
-            delta.reward(base_reward)?;
+            delta.reward(base_reward as u128)?;
         } else {
-            let reward_numerator = base_reward
-                .safe_mul(attesting_balance.safe_div(spec.effective_balance_increment)?)?;
+            let reward_numerator = (base_reward as u128)
+                .safe_mul((attesting_balance as u128).safe_div(spec.effective_balance_increment as u128)?)?;
             delta.reward(
                 reward_numerator
-                    .safe_div(total_balance.safe_div(spec.effective_balance_increment)?)?,
+                    .safe_div((total_balance as u128).safe_div(spec.effective_balance_increment as u128)?)?,
             )?;
         }
     } else {
-        delta.penalize(base_reward)?;
+        delta.penalize(base_reward as u128)?;
     }
 
     Ok(delta)
@@ -274,9 +274,9 @@ pub fn get_inclusion_delay_delta(
             .ok_or(Error::ValidatorStatusesInconsistent)?;
 
         let proposer_reward = get_proposer_reward(base_reward, spec)?;
-        proposer_delta.reward(proposer_reward)?;
+        proposer_delta.reward(proposer_reward as u128)?;
         let max_attester_reward = base_reward.safe_sub(proposer_reward)?;
-        delta.reward(max_attester_reward.safe_div(inclusion_info.delay)?)?;
+        delta.reward((max_attester_reward as u128).safe_div(inclusion_info.delay as u128)?)?;
 
         let proposer_index = inclusion_info.proposer_index;
         Ok((delta, Some((proposer_index, proposer_delta))))
@@ -297,9 +297,9 @@ pub fn get_inactivity_penalty_delta(
     if finality_delay > spec.min_epochs_to_inactivity_penalty {
         // If validator is performing optimally this cancels all rewards for a neutral balance
         delta.penalize(
-            spec.base_rewards_per_epoch
-                .safe_mul(base_reward)?
-                .safe_sub(get_proposer_reward(base_reward, spec)?)?,
+            (spec.base_rewards_per_epoch as u128)
+                .safe_mul(base_reward as u128)?
+                .safe_sub(get_proposer_reward(base_reward, spec)? as u128 )?,
         )?;
 
         // Additionally, all validators whose FFG target didn't match are penalized extra
@@ -307,10 +307,10 @@ pub fn get_inactivity_penalty_delta(
         // `index not in get_unslashed_attesting_indices(state, matching_target_attestations)`
         if validator.is_slashed || !validator.is_previous_epoch_target_attester {
             delta.penalize(
-                validator
-                    .current_epoch_effective_balance
-                    .safe_mul(finality_delay)?
-                    .safe_div(spec.inactivity_penalty_quotient)?,
+                (validator
+                    .current_epoch_effective_balance as u128)
+                    .safe_mul(finality_delay as u128)?
+                    .safe_div(spec.inactivity_penalty_quotient as u128)?,
             )?;
         }
     }

@@ -52,11 +52,11 @@ impl ProgressiveBalancesCache {
         if epoch == cache.current_epoch {
             cache
                 .current_epoch_target_attesting_balance
-                .safe_add_assign(validator_effective_balance)?;
+                .safe_add_assign(validator_effective_balance as u128)?;
         } else if epoch.safe_add(1)? == cache.current_epoch {
             cache
                 .previous_epoch_target_attesting_balance
-                .safe_add_assign(validator_effective_balance)?;
+                .safe_add_assign(validator_effective_balance as u128)?;
         } else {
             return Err(BeaconStateError::ProgressiveBalancesCacheInconsistent);
         }
@@ -76,12 +76,12 @@ impl ProgressiveBalancesCache {
         if is_previous_epoch_target_attester {
             cache
                 .previous_epoch_target_attesting_balance
-                .safe_sub_assign(effective_balance)?;
+                .safe_sub_assign(effective_balance as u128)?;
         }
         if is_current_epoch_target_attester {
             cache
                 .current_epoch_target_attesting_balance
-                .safe_sub_assign(effective_balance)?;
+                .safe_sub_assign(effective_balance as u128)?;
         }
         Ok(())
     }
@@ -99,11 +99,11 @@ impl ProgressiveBalancesCache {
             if new_effective_balance > old_effective_balance {
                 cache
                     .current_epoch_target_attesting_balance
-                    .safe_add_assign(new_effective_balance.safe_sub(old_effective_balance)?)?;
+                    .safe_add_assign(new_effective_balance.safe_sub(old_effective_balance)? as u128)?;
             } else {
                 cache
                     .current_epoch_target_attesting_balance
-                    .safe_sub_assign(old_effective_balance.safe_sub(new_effective_balance)?)?;
+                    .safe_sub_assign(old_effective_balance.safe_sub(new_effective_balance)? as u128)?;
             }
         }
         Ok(())
@@ -117,18 +117,18 @@ impl ProgressiveBalancesCache {
         cache.previous_epoch_target_attesting_balance =
             cache.current_epoch_target_attesting_balance;
         cache.current_epoch_target_attesting_balance =
-            Balance::zero(spec.effective_balance_increment);
+            Balance::zero(spec.effective_balance_increment as u128);
         Ok(())
     }
 
-    pub fn previous_epoch_target_attesting_balance(&self) -> Result<u64, BeaconStateError> {
+    pub fn previous_epoch_target_attesting_balance(&self) -> Result<u128, BeaconStateError> {
         Ok(self
             .get_inner()?
             .previous_epoch_target_attesting_balance
             .get())
     }
 
-    pub fn current_epoch_target_attesting_balance(&self) -> Result<u64, BeaconStateError> {
+    pub fn current_epoch_target_attesting_balance(&self) -> Result<u128, BeaconStateError> {
         Ok(self
             .get_inner()?
             .current_epoch_target_attesting_balance

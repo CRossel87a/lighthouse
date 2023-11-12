@@ -24,7 +24,7 @@ impl<'a, T: EthSpec> AttMaxCover<'a, T> {
         att: AttestationRef<'a, T>,
         state: &BeaconState<T>,
         reward_cache: &'a RewardCache,
-        total_active_balance: u64,
+        total_active_balance: u128,
         spec: &ChainSpec,
     ) -> Option<Self> {
         if let BeaconState::Base(ref base_state) = state {
@@ -39,7 +39,7 @@ impl<'a, T: EthSpec> AttMaxCover<'a, T> {
         att: AttestationRef<'a, T>,
         state: &BeaconState<T>,
         base_state: &BeaconStateBase<T>,
-        total_active_balance: u64,
+        total_active_balance: u128,
         spec: &ChainSpec,
     ) -> Option<Self> {
         let fresh_validators = earliest_attestation_validators(&att, state, base_state);
@@ -73,7 +73,7 @@ impl<'a, T: EthSpec> AttMaxCover<'a, T> {
         att: AttestationRef<'a, T>,
         state: &BeaconState<T>,
         reward_cache: &'a RewardCache,
-        total_active_balance: u64,
+        total_active_balance: u128,
         spec: &ChainSpec,
     ) -> Option<Self> {
         let att_data = att.attestation_data();

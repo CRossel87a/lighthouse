@@ -223,7 +223,7 @@ impl<T: EthSpec> OperationPool<T> {
         all_attestations: &'a AttestationMap<T>,
         state: &'a BeaconState<T>,
         reward_cache: &'a RewardCache,
-        total_active_balance: u64,
+        total_active_balance: u128,
         validity_filter: impl FnMut(&AttestationRef<'a, T>) -> bool + Send,
         spec: &'a ChainSpec,
     ) -> impl Iterator<Item = AttMaxCover<'a, T>> + Send {
