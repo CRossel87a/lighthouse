@@ -71,7 +71,6 @@ members = [
     "slasher",
     "slasher/service",
 
-    "testing/ef_tests",
     "testing/eth1_test_rig",
     "testing/execution_engine_integration",
     "testing/node_test_rig",

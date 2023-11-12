@@ -1855,37 +1855,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "ef_tests"
-version = "0.2.0"
-dependencies = [
- "beacon_chain",
- "bls",
- "cached_tree_hash",
- "compare_fields",
- "compare_fields_derive",
- "derivative",
- "ethereum-types 0.14.1",
- "ethereum_ssz",
- "ethereum_ssz_derive",
- "execution_layer",
- "fork_choice",
- "fs2",
- "hex",
- "rayon",
- "serde",
- "serde_derive",
- "serde_repr",
- "serde_yaml",
- "snap",
- "state_processing",
- "store",
- "swap_or_not_shuffle",
- "tree_hash",
- "tree_hash_derive",
- "types",
-]
-
-[[package]]
 name = "either"
 version = "1.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
