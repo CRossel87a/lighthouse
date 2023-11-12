@@ -60,7 +60,7 @@ pub enum Operation {
     },
     AssertWeight {
         block_root: Hash256,
-        weight: u64,
+        weight: u128,
     },
 }
 

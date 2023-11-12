@@ -77,7 +77,7 @@ use types::{
     ProposerPreparationData, ProposerSlashing, RelativeEpoch, SignedAggregateAndProof,
     SignedBeaconBlock, SignedBlindedBeaconBlock, SignedBlsToExecutionChange,
     SignedContributionAndProof, SignedValidatorRegistrationData, SignedVoluntaryExit, Slot,
-    SyncCommitteeMessage, SyncContributionData,
+    SyncCommitteeMessage, SyncContributionData, Uint256
 };
 use validator::pubkey_to_validator_index;
 use version::{
@@ -2621,7 +2621,7 @@ pub fn serve<T: BeaconChainTypes>(
                                     .map(|parent| parent.root),
                                 justified_epoch: node.justified_checkpoint.epoch,
                                 finalized_epoch: node.finalized_checkpoint.epoch,
-                                weight: node.weight,
+                                weight: Uint256::from(node.weight),
                                 validity: execution_status,
                                 execution_block_hash: node
                                     .execution_status
